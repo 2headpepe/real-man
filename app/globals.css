@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-bebas-neue: var(--font-bebas-neue);
+  --font-damn: var(--font-damn);
+}
