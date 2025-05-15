@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Manrope } from "next/font/google";
+import clsx from "clsx";
+
 import "./globals.css";
 
 const bebasNeue = localFont<"--font-bebas-neue">({
@@ -9,9 +12,9 @@ const bebasNeue = localFont<"--font-bebas-neue">({
       weight: "700",
     },
     {
-      path:"../public/fonts/bebas-neue-regular.ttf",
+      path: "../public/fonts/bebas-neue-regular.ttf",
       weight: "400",
-    }
+    },
   ],
   variable: "--font-bebas-neue",
 });
@@ -26,6 +29,11 @@ const damn = localFont<"--font-damn">({
   variable: "--font-damn",
 });
 
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin", "cyrillic"],
+});
+
 export const metadata: Metadata = {
   title: "Real Man",
   description: "Real man description",
@@ -38,7 +46,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bebasNeue.variable} ${damn.variable} antialiased`}>{children}</body>
+      <body
+        className={clsx(
+          bebasNeue.variable,
+          damn.variable,
+          manrope.variable,
+          "antialiased"
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 }
