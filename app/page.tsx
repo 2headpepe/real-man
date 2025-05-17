@@ -1,5 +1,3 @@
-"use client";
-
 import { Header } from "./components/header/header";
 import { ProgressCard } from "./components/progress-bar/progress-bar";
 import { MissionsCard } from "./components/missions-card/missions-card";
@@ -10,21 +8,23 @@ import { Footer } from "./components/footer/footer";
 
 export default function Home() {
   return (
-    <div className="sm:bg-[rgba(255,250,246)]">
+    <div className="sm:bg-[rgba(255,250,246)] sm:px-10">
       <Header />
-      <hr className="sm:hidden mt-13" />
+      <hr className="sm:hidden" />
 
-      <main className="sm:bg-[rgba(255,250,246)] sm:pt-40 sm:mx-15 xl:mx-24 xxl:mx-48 flex flex-col gap-1">
+      <main className="max-w-[1200px] mt-13 sm:mt-0 pb-14.5 sm:pb-9 sm:mx-auto sm:pt-39.5 flex flex-col sm:bg-[rgba(255,250,246)] sm:gap-0.75">
         <ProgressCard />
-        <hr className="block sm:hidden mb-4" />
+        <hr className="block sm:hidden mb-5" />
 
-        <NavigationTabs />
-        <div className="flex gap-1 items-start min-w-0">
-          <div className="px-4 sm:px-0 flex flex-col gap-1 shrink-1 grow-1 max-w-full">
+        <div className="sm:grid grid-flow-col auto-cols-fr gap-x-1 gap-y-2 sm:mt-2">
+          <NavigationTabs />
+          <div className="px-5 sm:px-0 flex flex-col gap-0.75 shrink-1 grow-1 max-w-full row-start-2 col-start-1 col-span-5">
             <ReferralSystem />
             <MissionsCard />
           </div>
-          <AvatarCard />
+          <div className="row-start-2 col-start-6">
+            <AvatarCard />
+          </div>
         </div>
       </main>
       <Footer />

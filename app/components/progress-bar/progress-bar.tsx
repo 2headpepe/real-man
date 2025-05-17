@@ -1,7 +1,9 @@
-import Belt from "@/public/images/belt.png";
-import Watch from "@/public/images/watch.png";
+import Belt from "@/assets/images/belt.png";
+import Watch from "@/assets/images/watch.png";
 import { ProgressBar } from "@/ui/progress-bar";
 import { LevelDisplay } from "./components/level-display";
+import clsx from "clsx";
+import Image from "next/image";
 
 const LEVEL_DATA = {
   current: {
@@ -9,7 +11,7 @@ const LEVEL_DATA = {
     image: {
       src: Belt,
       alt: "Belt",
-      className: "bg-green",
+      className: "bg-[rgba(58,140,114)]",
     },
   },
   next: {
@@ -17,7 +19,7 @@ const LEVEL_DATA = {
     image: {
       src: Watch,
       alt: "Watch",
-      className: "bg-yellow",
+      className: "bg-[rgba(248,197,32)]",
     },
   },
 };
@@ -29,13 +31,44 @@ const PROGRESS_DATA = {
 };
 
 export const ProgressCard = () => (
-  <div className="flex items-center justify-between gap-4 p-2 sm:gap-8 lg:gap-12 xl:gap-12 bg-white rounded border-primary sm:border">
-    <LevelDisplay {...LEVEL_DATA.current} align="left" />
+  <div className="flex justify-between px-5 pt-2 pb-1.5 sm:p-2 bg-white rounded-[8px] sm:border">
+    <div
+      className={clsx(
+        "hidden sm:flex items-center justify-center rounded-[8px] border min-w-24.5",
+        LEVEL_DATA.current.image.className
+      )}
+    >
+      <Image
+        src={LEVEL_DATA.current.image.src}
+        alt={LEVEL_DATA.current.image.alt}
+        width={79}
+        height={45}
+        className="object-contain w-10 sm:w-14.5"
+      />
+    </div>
+    <div className="flex items-start justify-between w-full gap-2.5 sm:h-a mt-auto sm:mt-5 sm:gap-25 sm:ml-2 sm:mr-3.5">
+      <LevelDisplay {...LEVEL_DATA.current} align="left" />
 
-    <div className="flex-1 min-w-0">
-      <ProgressBar {...PROGRESS_DATA} />
+      <div className="flex-1 shrink-1 min-w-0 min-h-full tracking-[0.04em]">
+        <ProgressBar {...PROGRESS_DATA} />
+      </div>
+
+      <LevelDisplay {...LEVEL_DATA.next} align="right" />
     </div>
 
-    <LevelDisplay {...LEVEL_DATA.next} align="right" />
+    <div
+      className={clsx(
+        "hidden sm:flex items-center justify-center rounded-[8px] border min-w-24.5",
+        LEVEL_DATA.next.image.className
+      )}
+    >
+      <Image
+        src={LEVEL_DATA.next.image.src}
+        alt={LEVEL_DATA.next.image.alt}
+        width={58}
+        height={80}
+        className="object-contain w-10 sm:w-14.5"
+      />
+    </div>
   </div>
 );

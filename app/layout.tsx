@@ -8,11 +8,11 @@ import "./globals.css";
 const bebasNeue = localFont<"--font-bebas-neue">({
   src: [
     {
-      path: "../public/fonts/bebas-neue-bold.ttf",
+      path: "./assets/fonts/bebas-neue-bold.ttf",
       weight: "700",
     },
     {
-      path: "../public/fonts/bebas-neue-regular.ttf",
+      path: "./assets/fonts/bebas-neue-regular.ttf",
       weight: "400",
     },
   ],
@@ -22,7 +22,7 @@ const bebasNeue = localFont<"--font-bebas-neue">({
 const damn = localFont<"--font-damn">({
   src: [
     {
-      path: "../public/fonts/DAMN.ttf",
+      path: "./assets/fonts/DAMN.ttf",
       weight: "400",
     },
   ],

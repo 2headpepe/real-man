@@ -2,7 +2,7 @@
 
 import React, { RefObject, useEffect, useState } from "react";
 import Image from "next/image";
-import Question from "@/public/icons/question.svg";
+import Question from "@/assets/icons/question.svg";
 import { usePopup } from "@/ui/use-popup";
 
 const useIsMobile = () => {
@@ -23,7 +23,7 @@ export const Header = () => {
   });
 
   return (
-    <h1 className="mb-[12px] text-static-section-title font-bold text-black flex items-baseline gap-[4px]">
+    <h1 className="flex items-baseline gap-1.5 text-[32px] font-bold text-black leading-none">
       REFERRAL SYSTEM
       <Image
         src={Question}

@@ -1,6 +1,8 @@
+"use client";
+
 import React, { RefObject, useCallback } from "react";
 import Image from "next/image";
-import CopyIcon from "@/public/icons/copy.svg";
+import CopyIcon from "@/assets/icons/copy.svg";
 
 import { usePopup } from "@/ui/use-popup";
 import { Header } from "./header";
@@ -15,18 +17,20 @@ const REFERRAL_SYSTEM = {
 };
 
 export const ReferralSystem = () => (
-  <div className="sm:border border-solid border-border-primary bg-white sm:rounded-[8px] sm:p-6">
+  <div className="sm:border border-solid bg-white sm:rounded-[8px] sm:px-7.5 sm:pt-9.5 sm:pb-7.5">
     <Header />
-    <div className="flex flex-col gap-[8px] md:flex-row">
+    <div className="flex flex-col gap-2 sm:flex-row mt-3 sm:mt-5">
       <ReferralLink />
-      <div className="grid gap-[8px] grid-flow-col auto-cols-fr">
+      <div className="grid gap-2 grid-flow-col auto-cols-fr  grow-1">
         {REFERRAL_SYSTEM.stats.map(({ label, value }) => (
           <div
             key={label}
-            className="secondaryCard flexCenter flex-col p-2 flex-1"
+            className="border border-solid border-[rgba(0,0,0,0.25)] bg-white rounded-[8px] flex items-start sm:items-center justify-center flex-col p-2.25 flex-1 gap-0.5"
           >
-            <p className="subsectionTitle font-bold">{value}</p>
-            <p className="description text-text-secondary">{label}</p>
+            <p className="text-[20px] sm:text-[24px] font-bold">{value}</p>
+            <p className="text-[10px] sm:text-[12px] text-[rgba(1,1,1,0.35)]">
+              {label}
+            </p>
           </div>
         ))}
       </div>
@@ -46,12 +50,12 @@ const ReferralLink = () => {
   }, [onClick]);
 
   return (
-    <div className="secondaryCard grow-1 flex items-center justify-between p-3 rounded">
-      <div>
-        <span className="text-green-extralight font-bold subsectionTitle">
+    <div className="border border-solid border-[rgba(0,0,0,0.25)] bg-white grow-1 flex items-center justify-between p-2.25 pr-3.5 sm:py-3.5 sm:px-4.5 rounded-[8px]">
+      <div className="leading-none">
+        <span className="text-[rgba(38,161,123)] font-bold text-[20px] sm:text-[24px]">
           {REFERRAL_SYSTEM.link}
         </span>
-        <h2 className="text-static-section-title description">
+        <h2 className="text-[10px] sm:text-[12px] tracking-[0.04em]">
           YOUR REFERRAL LINK
         </h2>
       </div>

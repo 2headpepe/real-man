@@ -79,8 +79,8 @@ export const usePopup = <T extends TriggerType = TriggerType>({
         "fixed mx-auto max-w-max bg-gray-900 text-white text-sm py-2 px-4 rounded-lg shadow-lg",
         "transition-all duration-300 origin-bottom -translate-x-1/2",
         "sm:top-[var(--popup-top)] sm:left-[var(--popup-left)] sm:bottom-auto",
-        "bottom-4 left-1/2 top-auto",
-        isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+        "bottom-16 left-1/2 top-auto",
+        isVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"
       )}
       style={
         {

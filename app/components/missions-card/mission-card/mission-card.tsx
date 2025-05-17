@@ -1,9 +1,10 @@
-import Question from "@/public/icons/question.svg";
-import Logo from "@/public/icons/logo.svg";
+import Question from "@/assets/icons/question.svg";
+import Logo from "@/assets/icons/logo.svg";
 import clsx from "clsx";
 import { ReactNode, RefObject, useState } from "react";
 import { ResponsiveImage } from "@/ui/responsive-image";
 import { usePopup } from "@/ui/use-popup";
+import { HoverOverlay } from "@/ui/hover-overlay";
 
 export type Mission = {
   id: number;
@@ -17,6 +18,7 @@ export type Mission = {
 type FooterType =
   | {
       type: "input";
+      inputType?: "small" | "default";
       onSubmit: (text: string) => void;
       placeholder?: string;
     }
@@ -35,8 +37,13 @@ export const MissionCard: React.FC<Mission> = ({
   type = "default",
   hintText,
 }) => (
-  <div className={clsx(BG_CLASSES[type], "max-w-full overflow-hidden card")}>
-    <div className="flex flex-col md:flex-row gap-3 md:gap-6 lg:gap-16 xl:gap-26 p-4 rounded">
+  <div
+    className={clsx(
+      BG_CLASSES[type],
+      "max-w-full overflow-hidden border border-solid bg-white rounded-[8px]"
+    )}
+  >
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-26 pt-4 px-2.5 pb-2.5 sm:px-4.5 sm:py-4 rounded-[8px]">
       <ContentSection title={title} footer={footer} type={type} />
       <ActionsSection
         rewardAmount={rewardAmount}
@@ -52,22 +59,32 @@ const ContentSection = ({
   footer,
   type,
 }: Pick<Mission, "title" | "footer" | "type">) => (
-  <div className="flex flex-col gap-3 sm:gap-1 flex-1 sm:h-full min-h-14.5 lg:min-h-14.5 grow-1">
+  <div className="flex flex-col sm:gap-1 flex-1 sm:h-full sm:min-h-14.5 grow-1">
     <div
       className={clsx(
-        "flex items-center h-full subsectionTitle",
+        "h-full text-[20px] sm:text-[24px] tracking-[0.04em] font-bold",
         type === "completed" && "line-through opacity-35"
       )}
     >
       {title}
     </div>
     {type !== "completed" && footer && (
-      <div className="sm:mt-auto">
+      <div className="mt-1 sm:mt-auto">
         <Footer data={footer} />
       </div>
     )}
     {type === "completed" && (
-      <button className="disabledButton w-fit sm:mt-auto" disabled>
+      <button
+        className="bg-[rgba(212,212,212,1)] 
+        px-3 pt-2 pb-1 
+        rounded-[8px]
+        font-bold 
+        text-sm 
+        text-[rgba(1,1,1,0.35)] 
+        leading-none
+        cursor-auto; w-fit sm:mt-auto text-[16px] sm:text-[24px] mt-1 tracking-[0.04em]"
+        disabled
+      >
         Completed
       </button>
     )}
@@ -79,7 +96,7 @@ const ActionsSection = ({
   type,
   hintText,
 }: Pick<Mission, "rewardAmount" | "type" | "hintText">) => (
-  <div className="flex gap-2 h-11 md:h-auto">
+  <div className="flex gap-2 h-11 sm:h-auto">
     {hintText && <HintButton hintText={hintText} />}
     <RewardButton rewardAmount={rewardAmount} type={type} />
   </div>
@@ -94,16 +111,16 @@ const HintButton = ({ hintText }: { hintText: string }) => {
     <>
       <PopupComponent />
       <button
-        className="card rounded flexCenter aspect-square group relative min-w-10.5 withShadow"
+        className="border border-solid bg-white rounded-[8px] flex items-center justify-center w-11 sm:w-14 group relative shadow-[0_3px_0_0_rgba(0,0,0,0.25)]"
         onClick={onClick}
         ref={ref as RefObject<HTMLButtonElement>}
       >
         <ResponsiveImage
           src={Question}
           alt="Hint"
-          className="w-5 h-5 lg:w-8 lg:h-8"
+          className="w-5 h-5 sm:w-8 sm:h-8 m-auto"
         />
-        <div className="overlay" />
+        <HoverOverlay />
       </button>
     </>
   );
@@ -115,23 +132,29 @@ const RewardButton = ({
 }: Pick<Mission, "rewardAmount" | "type">) => (
   <button
     className={clsx(
-      "flex items-center justify-between w-63 card rounded px-4 primaryText group relative flex-1 withShadow",
-      type === "completed" && "disabledButton"
+      "flex items-center justify-between w-63 rounded-[8px] px-4 sm:px-5 text-[20px] sm:text-[32px] group relative flex-1 font-bold pt-1",
+      type === "completed"
+        ? "bg-[rgba(212,212,212,1)] px-3 pt-2 pb-1 rounded-[8px] font-bold text-sm sm:text-[24px]text-[rgba(1,1,1,0.35)] leading-none cursor-auto"
+        : "border border-solid bg-white rounded-[8px] shadow-[0_3px_0_0_rgba(0,0,0,0.25)]"
     )}
   >
-    <span>{type === "completed" ? "Received" : "Reward"}</span>
+    <div>{type === "completed" ? "Received" : "Reward"}</div>
     <div className="flex gap-1 items-baseline">
-      <span
+      <div
         className={clsx(
           "leading-none",
-          type !== "completed" && "text-green-extralight"
+          type !== "completed" && "text-[rgba(38,161,123)]"
         )}
       >
         {rewardAmount}
-      </span>
-      <ResponsiveImage src={Logo} alt="Logo" className="h-5.5 w-5.5" />
+      </div>
+      <ResponsiveImage
+        src={Logo}
+        alt="Logo"
+        className="h-4 w-4 sm:h-5.5 sm:w-5.5"
+      />
     </div>
-    {type !== "completed" && <div className="overlay" />}
+    {type !== "completed" && <HoverOverlay />}
   </button>
 );
 
@@ -144,18 +167,19 @@ const Footer = ({ data }: { data: FooterType }) => {
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className="input w-full"
+        className={(clsx("input"), data.inputType === "small" ? "" : "w-full")}
+        placeholder={data.placeholder}
       />
       <button
-        className="card confirmText py-1 px-3 leading-none rounded group relative"
+        className="border border-solid bg-white pt-1 px-6.5 font-bold leading-none rounded-[8px] group relative text-[16px] sm:text-[24px] tracking-[0.04em]"
         onClick={() => data.onSubmit(inputValue)}
       >
         Confirm
-        <div className="overlay" />
+        <HoverOverlay />
       </button>
     </div>
   ) : (
-    <div className="secondaryCard px-3 py-2 text-sm font-medium w-fit">
+    <div className="border border-solid border-[rgba(0,0,0,0.25)] bg-white rounded-[8px] px-3 pt-1.75 pb-0.75 text-[16px] sm:text-[24px] font-bold w-fit tracking-[0.04em]">
       {data.current}/{data.target}
     </div>
   );

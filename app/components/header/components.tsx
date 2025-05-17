@@ -1,8 +1,9 @@
 import Image from "next/image";
 
-import Arrow from "@/public/icons/arrow.svg";
+import Arrow from "@/assets/icons/arrow.svg";
 import { ReactNode } from "react";
 import clsx from "clsx";
+import { HoverOverlay } from "@/ui/hover-overlay";
 
 export const NavButton = ({
   text,
@@ -17,14 +18,14 @@ export const NavButton = ({
 }) => (
   <button
     className={clsx(
-      "card group relative flex items-center py-1 sm:py-1.5",
+      "border border-solid bg-white rounded-[8px] group relative flex items-center py-1 sm:py-1.5 text-[24px] tracking-[0.04em]",
       padding
     )}
   >
     {text}
     {badge && <NotificationBadge count={badge} />}
     {icon}
-    <div className="overlay" />
+    <HoverOverlay />
   </button>
 );
 
@@ -39,7 +40,7 @@ export const ArrowIcon = () => (
 );
 
 export const NotificationBadge = ({ count }: { count: number }) => (
-  <div className="notification absolute right-full h-6 w-6 translate-x-1/2 text-sm">
+  <div className="rounded-full bg-[rgba(227,60,0)] border font-manrope text-white font-bold flex items-center justify-center absolute right-full h-6 w-6 translate-x-1/2 text-sm">
     {count}
   </div>
 );
